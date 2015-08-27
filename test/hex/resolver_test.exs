@@ -114,6 +114,11 @@ defmodule Hex.ResolverTest do
     assert resolve(deps, locked) == "Looking up alternatives for conflicting requirements on decimal\n  Activated version: 0.0.1\n  From ex_plex v0.1.0: ~> 0.1.0\n  From mix.exs: ~> 0.0.1\n  From mix.lock: 0.0.1"
   end
 
+  test "error messages are unique" do
+    deps = [d: "~> 0.0.1"]
+    assert resolve(deps, []) == ""
+  end
+
   test "optional" do
     deps = [ex_doc: nil, has_optional: nil]
     assert Dict.equal? locked([ex_doc: "0.0.2", has_optional: "0.1.0"]), resolve(deps)
